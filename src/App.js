@@ -9,12 +9,13 @@ import {
 } from "react-router-dom";
 import ReviewArea from './Components/ReviewArea/ReviewArea';
 import NotFound from './Components/NotFound/NotFound';
+import Contact from './Components/Contact/Contact';
 
 
 
 function App() {
   return (
-    <div className='container-fluid'>
+    <div className='container text-secondary'>
       <Router>
         <Switch>
           <Route exact path='/'>
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path='/review'>
             <ReviewArea></ReviewArea>
+          </Route>
+          <Route path='/contact'>
+            <Contact />
           </Route>
           <Route path='*'>
             <NotFound></NotFound>

@@ -1,62 +1,59 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ShowCase.css';
-import { addToDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
 
 const ShowCase = (props) => {
-    const { name, salary, img, age, country, id } = props.employee;
-    const [hour, sethour] = useState(0);
-    const increaseHour = () => {
-        sethour(hour + 1);
-        console.log(hour);
-    }
-    const decreaseHour = () => {
-        sethour(hour - 1);
-        console.log(hour);
-    }
+    const { employee, handleAddEmployee, handleDecrease, removeEmployee, showAllButton, showRemoveButton } = props;
+    const { name, salary, img, age, country, hours } = employee;
+
+
     return (
-        <div className='shadow p-2 m-3 employee'>
+        <div className='shadow py-3 px-5 m-3 employee'>
             <img className='employee-img' src={img} alt="" />
             <h5>{name}</h5>
             <p><b>Country: </b>{country}</p>
             <p><b>Age: </b>{age}</p>
             <p><b>Salary:</b> ${salary} / hour</p>
             {
-                hour > 0 && <p>Hiring for <b>{hour}</b> {hour > 1 ? `hours` : `hour`}</p>
+                showAllButton && hours > 0 && <p>Hiring for <b>{hours} </b>{hours > 1 ? 'hours' : 'hour'} at <b>$ {hours * salary}</b></p>
             }
             {
-                hour > 0 && <p>Hiring for <b>${hour * salary}</b></p>
+                showAllButton && (hours > 0 || <p>&nbsp;</p>)
             }
+
             {
-                hour > 0 || <button className='btn btn-success btn-sm mx-2' onClick={
+                showAllButton && hours === 0 && < button className='btn btn-success btn-sm m-1' onClick={
                     () => {
-                        increaseHour();
-                        addToDatabaseCart(id, hour);
+                        handleAddEmployee(employee);
                     }
                 }>Add Employee</button>
             }
             {
-                hour > 0 && <button className="btn btn-primary btn-sm mx-2" onClick={
+                showAllButton && hours > 0 && < button className='btn btn-primary btn-sm m-1' onClick={
                     () => {
-                        increaseHour();
-                        addToDatabaseCart(id, hour);
+                        handleAddEmployee(employee);
                     }
-                }>Add hour</button>
+                }>Add hours</button>
             }
             {
-                hour > 1 && <button className='btn btn-warning btn-sm' onClick={
+                showAllButton && hours > 1 && <button className='btn btn-warning btn-sm m-1' onClick={
                     () => {
-                        decreaseHour();
-                        addToDatabaseCart(id, hour);
+                        handleDecrease(employee);
                     }
-                }>Decreae hour</button>
+                }>Decrese hour</button>
             }
             {
-                hour === 1 && <button className='btn btn-danger btn-sm' onClick={
+                showAllButton && hours === 1 && <button className='btn btn-danger btn-sm m-1' onClick={
                     () => {
-                        decreaseHour();
-                        removeFromDatabaseCart(id)
+                        removeEmployee(employee);
                     }
-                }>Remove Employee</button>
+                }>Remove</button>
+            }
+            {
+                showRemoveButton && <button className='btn btn-danger btn-sm m-1' onClick={
+                    () => {
+                        removeEmployee(employee);
+                    }
+                }>Remove</button>
             }
         </div>
     );

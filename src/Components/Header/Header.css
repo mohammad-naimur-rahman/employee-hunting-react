@@ -1,0 +1,18 @@
+nav ul {
+  display: flex;
+}
+nav ul li {
+  list-style: none;
+  transition: 0.3s;
+}
+nav ul li:hover {
+  text-decoration: none;
+  color: #007bff !important;
+  background-color: white;
+}
+
+@media (max-width: 600px) {
+  nav ul {
+    margin: 0 auto;
+  }
+}

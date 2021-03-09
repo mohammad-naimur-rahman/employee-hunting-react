@@ -1,6 +1,5 @@
 .employee {
-  max-width: 400px;
-  min-width: 300px;
+  width: 320px;
 }
 .employee-img {
   width: 100px;
